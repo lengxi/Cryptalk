@@ -5,6 +5,7 @@
       "js": [ "jquery-2.0.3.min.js", "user.js" ],
       "matches": [ "http://mail.google.com/mail*", "https://mail.google.com/mail*", "http://mail.google.com/a/*", "https://mail.google.com/a/*" ]
    } ],
+   "web_accessible_resources": [ "jquery-2.0.3.min.js" ],
    "description": "Encrypting Google Chat",
    "manifest_version": 2,
    "name": "Cryptalk",

@@ -18,15 +18,40 @@
 
     /* body of application */
     var application = function() {
-        $(document).on("click", ".ad3", function() {
-            alert("hi");
+        $('body').on('DOMNodeInserted', function(e) { 
+            var element = $(e.target).find('.ad3');
+            if(element.length == 1) {
+                element = element[0];
+                var replacement = $(element).clone().attr("id", "abcdefgt");
+                $(element).css("display", "none");
+                replacement.on('keydown', function(e) {
+                    //enter
+                    if(e.which == 13)
+                    {
+                        e.preventDefault();
+                        var triggerKeyboardEvent = function(el, keyCode) {
+                            var eventObj = document.createEventObject ?
+                                document.createEventObject() : document.createEvent("Events");
+                          
+                            if(eventObj.initEvent){
+                              eventObj.initEvent("keydown", true, true);
+                            }
+
+                            eventObj.keyCode = keyCode;
+                            eventObj.which = keyCode;
+                            
+                            el.dispatchEvent ? el.dispatchEvent(eventObj) : el.fireEvent("onkeydown", eventObj); 
+                        } 
+
+                        $(element).val(replacement.val()).focus();
+                        triggerKeyboardEvent(element, 13);
+                        replacement.val("");
+                    }
+                });
+                $(element).parent().append(replacement);
+            } 
         });
     }
-
-    /*var a = document.createElement("script");
-    a.type = "text/javascript";
-    a.text = "while(true) {if(window.jQuery) alert(window.jQuery); break; }"
-    document.getElementsByTagName("head")[0].insertBefore(a, document.getElementById("jquery").nextSibling);*/
 
     delayedExecute(checkJquery, application);
 })();
